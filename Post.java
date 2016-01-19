@@ -33,6 +33,28 @@ public class Post
 	return title;
     }
 
+    public String getCategory() {
+	return category;
+    }
+
+// Access methods
+    public static List<Post> getPosts() {
+	return Demo.getPosts();
+    }
+
+    public static List<Post> getPosts(String category) {
+	HashMap<String, List> allCatPosts = new HashMap();
+	List<Post> posts = getPosts();
+
+        for (Post p : posts) {
+	    if (!allCatPosts.containsKey(p.getCategory())) {
+		allCatPosts.put(category, new ArrayList<Post>());
+	    }
+	    allCatPosts.get(category).add(p);
+        }
+	return allCatPosts.get(allCatPosts.get(category));
+    }
+
 
 //    abstract Post     updatePost(Post post);
 //    abstract boolean  deletePost(Post post);

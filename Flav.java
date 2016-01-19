@@ -46,10 +46,19 @@ public class Flav {
 	}
 
 	public static void showPosts() {
-//	    String category = sc.nextLine();
-//	    System.out.println(category);
-	    for (Post p : posts) {
-		System.out.println("title: " + p.getTitle());
+	    String category = sc.nextLine();
+	    List<Post> posts = null;
+	    if (category.length() == 0) {
+		posts = Post.getPosts();
+	    } else {
+		System.out.println("Category: "+category);
+		posts = Post.getPosts(category);
+	    }
+	    
+   	    if (posts != null) {
+	        for (Post p : posts) {
+	    	    System.out.println("title: " + p.getTitle());
+	        }
 	    }
 	}
 	
