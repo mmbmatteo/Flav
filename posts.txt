@@ -1,0 +1,4 @@
+request		goods		unycicles		IreallyNeedUnicicles
+offer		goods		chai			BestChaiInTown
+request		services 	codingLess		NeedToLearCoding
+offer		goods		chai			BestChaiInTown

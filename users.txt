@@ -1,0 +1,3 @@
+user1@mail.com		Password1
+user2@mail.com		Password2
+user3@mail.com		Password3
