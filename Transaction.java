@@ -6,12 +6,12 @@
  */
 import java.util.*;
 
-public class Transaction
+public abstract class Transaction
 {
     private     Post        post;
     private     User        buyer;
     private     Date        date;
     private     String      notes;
     //private     pic     jpg;
-    public Transaction newTransaction (User buyer, Post post, String notes);
+    public abstract Transaction newTransaction (User buyer, Post post, String notes);
 }

@@ -6,7 +6,7 @@
  */
 import java.util.*;
 
-public class Feedback
+abstract class Feedback
 { 
     private     User        receiver;
     private     int         rate;
@@ -15,6 +15,7 @@ public class Feedback
     private     Date        date;
     //private     pic     jpg;
 
-    public Feedback newFeedback (User receiver, int rate, String comment, Post post);
-    public Feedback updateFeedback(Feedback);
+    abstract Feedback newFeedback (User receiver, int rate, String comment, Post post);
+
+    abstract Feedback updateFeedback(Feedback fb);
 }

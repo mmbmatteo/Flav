@@ -6,13 +6,13 @@
  */
 import java.util.*;
 
-public class Message
+public abstract class Message
 {  
     private     User        receiver;
     private     Post        post;
     private     String      body;
     private     Date        date;
 
-    public Message newMessage(User receiver, Post post, String body);
-    public boolean archiveMessage(User);   
+    public abstract Message newMessage(User receiver, Post post, String body);
+    public abstract boolean archiveMessage(User user);   
 }

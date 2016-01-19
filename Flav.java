@@ -8,15 +8,15 @@
 
 import java.util.*;
 
-public class Flav0 {
+public class Flav {
 
 	static Scanner sc=new Scanner(System.in);
 
     public static void main(String[] args) {
- 		initUsers();
-		initPosts();
-	/*	initMessages
-		initTransactions */
+// 		initUsers();
+//		initPosts();
+//		initMessages
+//		initTransactions 
 		
 		//FIRST ACCESS
         System.out.print("\nFLAV WILL HELP YOU BUILD A BETTER LIFE AND A BETTER WORLD\n\n1\tLogin\n2\tI'm a new user\n3\tView Posts\n4\tSearch Posts\n5\tContact us\n6\tExit\n\n");

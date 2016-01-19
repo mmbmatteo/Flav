@@ -6,9 +6,9 @@
  */
 import java.util.*;
 
-public class Notification
+public abstract class Notification
 {
     private     User        user;    
     // post, message, transaction.....
-    public void newNotification(Post post, Message message);
+    public abstract void newNotification(Post post, Message message);
 }
