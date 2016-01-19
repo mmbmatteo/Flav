@@ -10,13 +10,16 @@ import java.util.*;
 
 public class Flav {
 
-	static Scanner sc=new Scanner(System.in);
+    static Scanner sc=new Scanner(System.in);
+    static List<Post> posts;
 
     public static void main(String[] args) {
+	posts = Demo.getPosts();
 // 		initUsers();
 //		initPosts();
 //		initMessages
 //		initTransactions 
+	
 		
 		//FIRST ACCESS
         System.out.print("\nFLAV WILL HELP YOU BUILD A BETTER LIFE AND A BETTER WORLD\n\n1\tLogin\n2\tI'm a new user\n3\tView Posts\n4\tSearch Posts\n5\tContact us\n6\tExit\n\n");
@@ -30,17 +33,24 @@ public class Flav {
 			case 2:	newUser();
 					break;
 
-/* 			case 3:	showPosts();
+ 			case 3:	showPosts();
 					break;	
 
-			case 4:	searchPosts();
-					break;		
-					 */
+//			case 4:	searchPosts();
+//					break;		
 			case 5: contact();
 					break;
 					
 			case 6: break;
 		}			
+	}
+
+	public static void showPosts() {
+//	    String category = sc.nextLine();
+//	    System.out.println(category);
+	    for (Post p : posts) {
+		System.out.println("title: " + p.getTitle());
+	    }
 	}
 	
 	//TWO FUNCTIONS OVERLOAD

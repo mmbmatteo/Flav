@@ -6,7 +6,7 @@
  */
 import java.util.*;
 
-public abstract class Post
+public class Post
 {
     private     long        postIdNumber;
 	private		String		requestOrOffer;
@@ -20,8 +20,21 @@ public abstract class Post
     private     String      status;
     private     Date        date;
     //private     pic     jpg;
-    abstract Post     newPost(String type, String category, String title, String description, float price);
-    abstract Post     updatePost(Post post);
-    abstract boolean  deletePost(Post post);
-    abstract User     flagPost(Post post);
+
+    public Post(String type, String category, String title, String description, float price) {
+	this.type = type;
+	this.category = category;
+	this.title = title;
+	this.description = description;
+	this.price = price;
+    }
+
+    public String getTitle() {
+	return title;
+    }
+
+
+//    abstract Post     updatePost(Post post);
+//    abstract boolean  deletePost(Post post);
+//    abstract User     flagPost(Post post);
 }
