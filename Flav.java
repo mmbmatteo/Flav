@@ -10,10 +10,10 @@ import java.util.*;
 
 public class Flav {
 
-    static Scanner sc=new Scanner(System.in);
-    static List<Post> posts;
+	static Scanner sc = new Scanner(System.in);
+	static List<Post> posts;
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 	posts = Demo.getPosts();
 // 		initUsers();
 //		initPosts();
@@ -22,8 +22,10 @@ public class Flav {
 	
 		
 		//FIRST ACCESS
-        System.out.print("\nFLAV WILL HELP YOU BUILD A BETTER LIFE AND A BETTER WORLD\n\n1\tLogin\n2\tI'm a new user\n3\tView Posts\n4\tSearch Posts\n5\tContact us\n6\tExit\n\n");
-		String selector = getAndCheckInputString("1|2|3");
+		System.out.print("\n******************************************************************************\n");
+		System.out.print("FLAV WILL HELP YOU BUILD A BETTER LIFE AND A BETTER WORLD\n\n1\tLogin\n2\tI'm a new user\n3\tView Posts\n4\tSearch Posts\n5\tContact us\n6\tExit\n\n");
+		
+		String selector = getAndCheckInputString("1|2|3|4|5|6");
 		int sel = Integer.parseInt(selector);
 		switch (sel) {
 			
@@ -38,6 +40,7 @@ public class Flav {
 
 //			case 4:	searchPosts();
 //					break;		
+			
 			case 5: contact();
 					break;
 					
@@ -46,27 +49,32 @@ public class Flav {
 	}
 
 	public static void showPosts() {
-	    String category = sc.nextLine();
-	    List<Post> posts = null;
-	    if (category.length() == 0) {
+		System.out.println("\nSEARCH POSTS\nEnter the category you are interested in: ");
+		String category = sc.nextLine();
+		List<Post> posts = null;
 		posts = Post.getPosts();
-	    } else {
-		System.out.println("Category: "+category);
-		posts = Post.getPosts(category);
-	    }
-	    
-   	    if (posts != null) {
-	        for (Post p : posts) {
-	    	    System.out.println("title: " + p.getTitle());
-	        }
-	    }
+		
+		if (category.length() == 0) {
+			System.out.println("You did not choose any category.");	
+				for (Post p : posts) {
+				    System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
+				}
+		} else {
+			System.out.println("\nYou chose " + category + " category:");
+				for (Post p : posts) {
+					if(p.getCategory().equals(category)){
+						System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
+					}
+				}
+		}
 	}
+	
 	
 	//TWO FUNCTIONS OVERLOAD
 	public static String getAndCheckInputString(String pattern, String invalidMessage){
 			String toCheck;
 				do {
-					toCheck=sc.next();
+					toCheck=sc.nextLine();
 					if(!toCheck.matches(pattern)){
 						System.out.println(toCheck + " " + invalidMessage + "\n");
 					}
@@ -77,7 +85,7 @@ public class Flav {
 	public static String getAndCheckInputString(String pattern){
 		String toCheck;
 			do {
-				toCheck=sc.next();
+				toCheck=sc.nextLine();
 				if(!toCheck.matches(pattern)){
 					System.out.println(toCheck + " IS AN INVALID INPUT! TRY AGAIN\n");
 				}
