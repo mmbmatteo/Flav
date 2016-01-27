@@ -6,11 +6,11 @@
  */
 import java.util.*;
 
-public class Post
-{
-    private     long        	postIdNumber;
-    private	String		requestOrOffer;
-    private     String      	type;
+public class Post{    
+	
+	private     long        	postIdNumber;
+    private		String			type;
+    private     String      	goodsOrServices;
     private     String      	category;
     private     String      	title;       //maybe add more items
     private     String      	description;
@@ -21,8 +21,8 @@ public class Post
     private     Date        	date;
     //private     pic     jpg;
 
-    public Post(String type, String category, String title, String description, float price) {
-	this.type = type;
+    public Post(String goodsOrServices, String category, String title, String description, float price) {
+	this.goodsOrServices = goodsOrServices;
 	this.category = category;
 	this.title = title;
 	this.description = description;
@@ -44,27 +44,18 @@ public class Post
     	public String getPrice() {
 	return String.valueOf(price);
     }
-
-// Access methods
-    public static List<Post> getPosts() {
-	return Demo.getPosts();
-    }
-
-    public static List<Post> getPosts(String category) {
-	HashMap<String, List> allCatPosts = new HashMap();
-	List<Post> posts = getPosts();
-
-        for (Post p : posts) {
-	    if (!allCatPosts.containsKey(p.getCategory())) {
-		allCatPosts.put(category, new ArrayList<Post>());
-	    }
-	    allCatPosts.get(category).add(p);
-        }
-	return allCatPosts.get(allCatPosts.get(category));
-    }
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public Post clone() {
+		return new Post(goodsOrServices, category, title, description, price);
+	}
 
 
-//    abstract Post     updatePost(Post post);
-//    abstract boolean  deletePost(Post post);
-//    abstract User     flagPost(Post post);
 }

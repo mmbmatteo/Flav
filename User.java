@@ -21,7 +21,7 @@ public class User {
     private     String          password;
     private     Date            dateOfBirth; 
     // private     Feedback[]      feedback;
-    // private     Post[]          posts;
+    private     Post[]          posts;
     // private     Post[]          flags;
     // private     Post[]          bookmarks;
     // private     Message[]       messages;

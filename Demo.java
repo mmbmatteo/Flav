@@ -3,7 +3,7 @@ import java.util.*;
 
 
 public class Demo {
-    static public List getUsers() {
+    static public ArrayList getUsers() {
 	ArrayList users = new ArrayList();
 	users.add(new User("matteo@m.com", "password"));
 	users.add(new User("freeman@m.com", "password"));
@@ -13,7 +13,7 @@ public class Demo {
 	return users;
     }
 
-    static public List<Post> getPosts() {
+    static public ArrayList<Post> getPosts() {
 	ArrayList<Post> posts = new ArrayList<Post>();
 	posts.add(new Post("goods", "vehicles", "1995 van for sale", "van blahn blah balh", 2500));
 	posts.add(new Post("goods", "vehicles", "1987 BMW Convertible", "high miles awesome car", 5000));
