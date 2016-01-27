@@ -15,11 +15,11 @@ public class PostDB {
 	}
 	
 	// Access methods
-    public static List<Post> getPosts() {
+    public static ArrayList<Post> getPosts() {
 		return posts; 	
 	}
 
-    public static List<Post> getPosts(String category) {
+    public static ArrayList<Post> getPosts(String category) {
 		return allCatPosts.get(category);
     }
 	

@@ -9,12 +9,13 @@ import java.util.*;
 public class Post{    
 	
 	private     long        	postIdNumber;
-    private		String			type;
+    private		String			type; //can be offer request or answer
     private     String      	goodsOrServices;
     private     String      	category;
     private     String      	title;       //maybe add more items
     private     String      	description;
     private     float       	price;
+	private		List<Post>		answers;
     private     float       	latitude;
     private     float       	longitude;
     private     String      	status;
@@ -27,22 +28,23 @@ public class Post{
 	this.title = title;
 	this.description = description;
 	this.price = price;
+	answers = new ArrayList<Post>();
     }
 
 	public String getTitle() {
-	return title;
+		return title;
 	}
     
 	public String getCategory() {
-	return category;
+		return category;
     }
     
 	public String getDescription() {
-	return description;
+		return description;
     }
     
-    	public String getPrice() {
-	return String.valueOf(price);
+    public String getPrice() {
+		return String.valueOf(price);
     }
 	
 	public void setDescription(String description) {
@@ -56,6 +58,19 @@ public class Post{
 	public Post clone() {
 		return new Post(goodsOrServices, category, title, description, price);
 	}
-
-
+	
+	public void addAnswer(String answerBody){
+		Post answer = clone();
+		answer.setDescription(answerBody);
+		answer.setType("answer");
+		answers.add(answer);
+	}
+	
+	public boolean hasAnswers(){
+		return !answers.isEmpty();
+	}
+	
+	public int answersNum(){
+		return answers.size();
+	}
 }
