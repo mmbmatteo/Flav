@@ -11,7 +11,24 @@ public class Tools {
 		return dateFormat.format(date);
 	}
 	
-		//getAndCheckInputString METHOD OVERLOAD
+	public static String getMainSelector(){
+		String sel = Tools.getAndCheckInputString("login|newuser|showposts|searchposts|contact|help|exit|1|2|3|4|5|6|7");
+		if (sel.matches("1|2|3|4|5|6|7")){
+			int intSel = Integer.parseInt(sel);
+			switch(intSel){
+				case 1 : sel = "login"; 		break;
+				case 2 : sel = "newuser"; 		break;
+				case 3 : sel = "showposts"; 	break;
+				case 4 : sel = "searchposts"; 	break;
+				case 5 : sel = "contact"; 		break;
+				case 6 : sel = "help"; 			break;
+				case 7 : sel = "exit"; 			break;
+			}
+		}
+		return sel;
+	}
+	
+	//getAndCheckInputString METHOD OVERLOAD
 	public static String getAndCheckInputString(String pattern, String invalidMessage){
 			String toCheck;
 				do {
@@ -37,5 +54,24 @@ public class Tools {
 	}
 	//END getAndCheckInputString METHOD OVERLOAD
 	
+	//printPosts METHOD OVERLOAD
+	public static void printPosts(ArrayList<Post> posts){
+		int count = 1;
+		String risp = "zero";
+		for (Post p : posts) {
+			if (!p.hasAnswers()){
+				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
+			} else{
+				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "");
+				if (p.answersNum() == 1){risp = " answer\n";}else{risp = " answers\n";}
+				System.out.println("\t" + p.answersNum() + risp); 
+			}
+		}
+	}
+	
+	public static void printPosts(String category){
+		printPosts(PostDB.getPosts(category));
+	}
+	//END printPosts METHOD OVERLOAD
 	
 }

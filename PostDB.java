@@ -15,13 +15,13 @@ public class PostDB {
 	}
 	
 	// Access methods
-    public static ArrayList<Post> getPosts() {
-		return posts; 	
-	}
-
     public static ArrayList<Post> getPosts(String category) {
+		if (category.equals("all")) {
+			return posts;
+		} else {
 		return allCatPosts.get(category);
-    }
+		}
+	}
 	
 	public static Post answerPost(Post post, String answerBody) {
 		Post answer = post.clone();

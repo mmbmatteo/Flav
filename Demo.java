@@ -9,6 +9,7 @@ public class Demo {
 	users.add(new User("freeman@m.com", "password"));
 	users.add(new User("vaibav@m.com", "password"));
 	users.add(new User("dheeraj@m.com", "password"));
+	users.add(new User("test", "test"));
 
 	return users;
     }

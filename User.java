@@ -33,6 +33,15 @@ public class User {
 		this.password = password;
 	}
 	
+	public String getCredentials() {
+		String credentials = email + " " + password;
+		return credentials;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
 	public void saveNew() {
 			
 			try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("users.txt", true)))){
