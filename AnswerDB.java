@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class PostDB {
+public class AnswerDB {
 	
-	Static ArrayList<Post> posts = Demo.getPosts()
+	static ArrayList<Post> posts = Demo.getPosts();
 	
-	public void printAnswers{
+	public void printAnswers(){
 		
 	}
 }

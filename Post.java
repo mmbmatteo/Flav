@@ -9,6 +9,7 @@ import java.util.*;
 public class Post{    
 	
 	private     long        	postIdNumber;
+	private		String			owner;
     private		String			type; //can be offer request or answer
     private     String      	goodsOrServices;
     private     String      	category;
@@ -43,12 +44,20 @@ public class Post{
 		return description;
     }
     
-    public String getPrice() {
+    public String getOwner() {
+		return owner;
+    }
+	
+	public String getPrice() {
 		return String.valueOf(price);
     }
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public void setOwner(User user) {
+		owner= user.getEmail();
 	}
 	
 	public void setType(String type) {
@@ -59,11 +68,12 @@ public class Post{
 		return new Post(goodsOrServices, category, title, description, price);
 	}
 	
-	public void addAnswer(String answerBody){
+	public void addAnswer(String answerBody, User user){
 		Post answer = clone();
 		answer.setDescription(answerBody);
 		answer.setType("answer");
 		answers.add(answer);
+		setOwner(user);
 	}
 	
 	public boolean hasAnswers(){

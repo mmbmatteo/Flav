@@ -17,6 +17,7 @@ public class Flav {
 	static ArrayList<Post> 	posts;
 
 	public static void main(String[] args) {
+		Demo.init();
 		PostDB.init();
 		UserDB.init();
 		Contents.printHome();
@@ -63,6 +64,7 @@ public class Flav {
 			Session.setLoggedIn(UserDB.loginCheck(loginEmail, loginPassword));
 			return true;
 		} else {
+			System.out.print("Invalid Credentials");
 			return false;
 		}		
 	}
@@ -110,7 +112,7 @@ public class Flav {
 	/*TEST*/System.out.println("prendo i post alla categoria " + category);
 	posts = PostDB.getPosts(category);
 	///*TEST*/System.out.println("ho " + posts.size() + "posts e voglio scrivere al " + replyNum + "-1");
-	posts.get(replyNum-1).addAnswer(answerBody);
+	posts.get(replyNum-1).addAnswer(answerBody, Session.getCurrentAccount());
 	}
 		
 	public static void contact(){

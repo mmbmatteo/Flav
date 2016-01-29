@@ -60,11 +60,13 @@ public class Tools {
 		String risp = "zero";
 		for (Post p : posts) {
 			if (!p.hasAnswers()){
-				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
+				System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
+				System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
 			} else{
-				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "");
+				System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
+				System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
 				if (p.answersNum() == 1){risp = " answer\n";}else{risp = " answers\n";}
-				System.out.println("\t" + p.answersNum() + risp); 
+				System.out.println("\t\t* " + p.answersNum() + risp); 
 			}
 		}
 	}
