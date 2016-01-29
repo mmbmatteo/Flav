@@ -23,6 +23,15 @@ public class PostDB {
 		}
 	}
 	
+	public static int getCategorySize(String category){
+		if (category.equals("all")){
+			return posts.size();
+		}else{
+		int size = allCatPosts.get(category).size();
+		return size;
+		}
+	}
+	
 	public static Post answerPost(Post post, String answerBody) {
 		Post answer = post.clone();
 		answer.setDescription(answerBody);

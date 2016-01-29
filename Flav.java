@@ -24,7 +24,8 @@ public class Flav {
 		
 		while (!sel.equals("exit")) {	
 			Contents.printMainMenu();
-			sel = Tools.getMainSelector();
+			ArrayList<String> mainMenu = new ArrayList<String>(Arrays.asList("Login", "NewUser", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
+			sel = Tools.launchMenu(mainMenu, "Invalid Input");
 			
  			if (sel.equals("login")){	
 				login();
@@ -57,6 +58,7 @@ public class Flav {
 	public static boolean login(){
 		System.out.print("\nInsert login email: ");
 		String loginEmail=sc.next();
+		
 		System.out.print("Insert Password: ");
 		String loginPassword=sc.next();
 		
@@ -80,23 +82,31 @@ public class Flav {
 	
 	public static void showPosts() {		
 		Contents.printPostsIntro();
-		category = Tools.getAndCheckInputString("all|lessons|vehicles", " category does not exist!");
+		ArrayList<String> categoryMenu = new ArrayList<String>(Arrays.asList("all", "lessons", "vehicles"));
+		category = Tools.launchMenu(categoryMenu, " category does not exist!");
 		System.out.println("****************************************************************************\n");
 		Tools.printPosts(category);
 		}
    
 	
 	public static void menuShowPosts() {	
+		ArrayList<String> replyMenu = new ArrayList<String>();
 		while (!sel2.equals("back")) {
-			System.out.print("\n\tReplyPost[int]\n\tBack\n\nSelect Function:\t");
-			sel2 = Tools.getAndCheckInputString("replypost\\d+|back", "ERROR! INPUT EXAMPLE: replypost1");
+			ArrayList<String> menuShow = new ArrayList<String>(Arrays.asList("ReplyPost", "Back"));
+			sel2 = Tools.launchMenu(menuShow, "invalid input");
 				
-			if (sel2.substring(0, sel2.length() - 1).equals("replypost")){
+			if (sel2.equals("replypost")){
+				int size = PostDB.getCategorySize(category);
+				
+				for (int i = 0; i < size; i++){
+					replyMenu.add(Integer.toString(i+1));
+				}
+				int replyNumSel = Integer.parseInt(Tools.launchMenuNoPrint(replyMenu,"Select post number" ,"invalid input"));
 				if (Session.getStatus()){
-					replyPost(sel2, category);
+					replyPost(replyNumSel, category);
 				} else {
 					if(login()){ 
-					replyPost(sel2, category);
+					replyPost(replyNumSel, category);
 					}
 				}
 			System.out.println("\n\nSent Answer!\n");
@@ -105,14 +115,11 @@ public class Flav {
 		if(sel2.equals("back")){sel2 = "IN";}
 	}
 	
-	public static void replyPost(String input, String category) {
-	int replyNum = Integer.parseInt(input.replaceAll("[\\D]", ""));
-	System.out.print("Reply to post number " + replyNum + ": ");
+	public static void replyPost(int input, String category) {
+	System.out.print("Reply to post number " + input + ": ");
 	String answerBody = sc.next();
-	/*TEST*/System.out.println("prendo i post alla categoria " + category);
 	posts = PostDB.getPosts(category);
-	///*TEST*/System.out.println("ho " + posts.size() + "posts e voglio scrivere al " + replyNum + "-1");
-	posts.get(replyNum-1).addAnswer(answerBody, Session.getCurrentAccount());
+	posts.get(input-1).addAnswer(answerBody, Session.getCurrentAccount());
 	}
 		
 	public static void contact(){

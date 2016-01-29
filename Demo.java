@@ -4,16 +4,13 @@ import java.util.*;
 
 public class Demo {
 	
-	static ArrayList<User> users = new ArrayList<User>(1);
-	static ArrayList<Post> posts = new ArrayList<Post>(1);
+	static ArrayList<User> users = new ArrayList<User>();
+	static ArrayList<Post> posts = new ArrayList<Post>();
 	
 	static void init(){
 		generateUsers();
-		System.out.print("testx");
 		generatePosts();
-		System.out.print("testx");
 		assignPosts();
-		System.out.print("testx");
 	}
 	
 	

@@ -3,10 +3,12 @@ import java.util.*;
 public class UserDB {
 	static ArrayList<User> usersList = Demo.getUsers();
 	static HashMap<String, User> allCredentials = new HashMap();
+	static HashMap<String, User> allEmails = new HashMap();
 	
 	static void init() {
 		for (User u : usersList) {
 				allCredentials.put(u.getCredentials(), u);
+				allEmails.put(u.getEmail(), u);
 		}
 	}
 	
@@ -24,6 +26,10 @@ public class UserDB {
 	static boolean exist(String loginEmail, String loginPassword){
 		String credentials = loginEmail + " " + loginPassword;
 		return (allCredentials.containsKey(credentials));
+	}
+	
+	static boolean emailExist(String email){
+		return (allCredentials.containsKey(email));
 	}
 }
 

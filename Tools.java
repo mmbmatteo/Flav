@@ -11,7 +11,7 @@ public class Tools {
 		return dateFormat.format(date);
 	}
 	
-	public static String getMainSelector(){
+/* 	public static String getMainSelector(){
 		String sel = Tools.getAndCheckInputString("login|newuser|showposts|searchposts|contact|help|exit|1|2|3|4|5|6|7");
 		if (sel.matches("1|2|3|4|5|6|7")){
 			int intSel = Integer.parseInt(sel);
@@ -26,7 +26,7 @@ public class Tools {
 			}
 		}
 		return sel;
-	}
+	} */
 	
 	//getAndCheckInputString METHOD OVERLOAD
 	public static String getAndCheckInputString(String pattern, String invalidMessage){
@@ -75,5 +75,58 @@ public class Tools {
 		printPosts(PostDB.getPosts(category));
 	}
 	//END printPosts METHOD OVERLOAD
+	
+	//launchMenu METHOD OVERLOAD	
+	public static String launchMenu(ArrayList<String> menu, String invalidMessage){
+		String pattern = "";
+		int i = 0;
+		ArrayList<String> patternList = new ArrayList<String>();
+		System.out.println("\n");
+		for (String element : menu) {
+			patternList.add(element.toLowerCase().concat("|").concat(Integer.toString(i+1)));
+			pattern = pattern.concat(element).concat("|").concat(Integer.toString(i+1));
+			pattern = pattern.concat("|");
+			System.out.println("\t" + element);
+			i++;
+		}
+		pattern = pattern.toLowerCase().substring(0, pattern.length()-1);
+		System.out.println("Select function\t");
+		String selection = getAndCheckInputString(pattern, invalidMessage);
+		
+		boolean found = false;
+		i = 0;
+		while (!found){
+			if (selection.matches(patternList.get(i++))){
+				found = true;
+			}
+		}
+		return menu.get(i-1).toLowerCase();
+	}
+	
+	public static String launchMenuNoPrint(ArrayList<String> menu, String printMessage, String invalidMessage){
+		String pattern = "";
+		int i = 0;
+		ArrayList<String> patternList = new ArrayList<String>();
+		System.out.println("\n");
+		for (String element : menu) {
+			patternList.add(element.toLowerCase().concat("|").concat(Integer.toString(i+1)));
+			pattern = pattern.concat(element).concat("|").concat(Integer.toString(i+1));
+			pattern = pattern.concat("|");
+			i++;
+		}
+		pattern = pattern.toLowerCase().substring(0, pattern.length()-1);
+		System.out.println(printMessage);
+		String selection = getAndCheckInputString(pattern, invalidMessage);
+		
+		boolean found = false;
+		i = 0;
+		while (!found){
+			if (selection.matches(patternList.get(i++))){
+				found = true;
+			}
+		}
+		return menu.get(i-1).toLowerCase();
+	}
+	//END launchMenu METHOD OVERLOAD
 	
 }
