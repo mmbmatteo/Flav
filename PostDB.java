@@ -23,6 +23,17 @@ public class PostDB {
 		}
 	}
 	
+	    public static Post getSinglePost(String category, int input) {
+		if (category.equals("all")) {
+			return posts.get(input);
+		} else {
+		ArrayList<Post> list = allCatPosts.get(category);
+		return list.get(input);
+		}
+	}
+	
+	
+	
 	public static int getCategorySize(String category){
 		if (category.equals("all")){
 			return posts.size();
@@ -36,7 +47,7 @@ public class PostDB {
 		Post answer = post.clone();
 		answer.setDescription(answerBody);
 		answer.setType("answer");
-	return answer;
+		return answer;
     }
 	
 	public static void addPost(Post post){

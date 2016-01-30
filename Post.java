@@ -16,7 +16,7 @@ public class Post{
     private     String      	title;       //maybe add more items
     private     String      	description;
     private     float       	price;
-	private		List<Post>		answers;
+	private		ArrayList<Post>	answers;
     private     float       	latitude;
     private     float       	longitude;
     private     String      	status;
@@ -52,12 +52,17 @@ public class Post{
 		return String.valueOf(price);
     }
 	
+	public ArrayList<Post> getAnswers() {
+		return answers;
+    }
+	
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
 	public void setOwner(User user) {
-		owner= user.getEmail();
+		owner = user.getEmail();
 	}
 	
 	public void setType(String type) {
@@ -70,10 +75,11 @@ public class Post{
 	
 	public void addAnswer(String answerBody, User user){
 		Post answer = clone();
+		answer.setOwner(user);
 		answer.setDescription(answerBody);
 		answer.setType("answer");
 		answers.add(answer);
-		setOwner(user);
+		
 	}
 	
 	public boolean hasAnswers(){

@@ -21,7 +21,7 @@ public class User {
     private     String          password;
     private     Date            dateOfBirth; 
     // private     Feedback[]      feedback;
-    public     ArrayList<Post>	posts = new ArrayList<Post>(5);	//public for Demo assigning
+    public     ArrayList<Post>	posts = new ArrayList<Post>();	//public for Demo assigning
     // private     Post[]          flags;
     // private     Post[]          bookmarks;
     // private     Message[]       messages;
@@ -40,6 +40,10 @@ public class User {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public ArrayList<Post> getMyPosts(){
+		return posts;
 	}
 	
 	public void uploadPost(Post post) {

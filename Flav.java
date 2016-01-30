@@ -15,7 +15,10 @@ public class Flav {
 	static String 			sel2 = "IN";
 	static String 			category = "";
 	static ArrayList<Post> 	posts;
-
+	static int				listSize;
+	static ArrayList<String> replyMenu = new ArrayList<String>();
+	static ArrayList<String> mainMenu = new ArrayList<String>();
+	
 	public static void main(String[] args) {
 		Demo.init();
 		PostDB.init();
@@ -24,11 +27,28 @@ public class Flav {
 		
 		while (!sel.equals("exit")) {	
 			Contents.printMainMenu();
-			ArrayList<String> mainMenu = new ArrayList<String>(Arrays.asList("Login", "NewUser", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
-			sel = Tools.launchMenu(mainMenu, "Invalid Input");
 			
+			if (Session.getStatus()){
+				mainMenu = new ArrayList<String>(Arrays.asList("Logout","MyProfile", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
+			}else{
+				mainMenu = new ArrayList<String>(Arrays.asList("Login", "NewUser", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
+			}
+			sel = Tools.launchMenu(mainMenu, "Invalid Input");
+
  			if (sel.equals("login")){	
 				login();
+				sel = "IN";
+			}
+			
+			if (sel.equals("logout")){	
+				Session.logout();
+				sel = "IN";
+			}
+			
+			if (sel.equals("myprofile")){	
+				ArrayList<String> myProfileMenu = new ArrayList<String>(Arrays.asList(""));
+				/*test*/System.out.println("Current Account: " + Session.getCurrentAccount().getEmail());
+				Tools.printMyPosts(Session.getCurrentAccount());
 				sel = "IN";
 			}
 		
@@ -84,23 +104,19 @@ public class Flav {
 		Contents.printPostsIntro();
 		ArrayList<String> categoryMenu = new ArrayList<String>(Arrays.asList("all", "lessons", "vehicles"));
 		category = Tools.launchMenu(categoryMenu, " category does not exist!");
-		System.out.println("****************************************************************************\n");
+		System.out.println("****************************************************************************");
 		Tools.printPosts(category);
+		listSize = PostDB.getCategorySize(category);
+		replyMenu = Tools.itemSelectionMenu(listSize);
 		}
    
 	
 	public static void menuShowPosts() {	
-		ArrayList<String> replyMenu = new ArrayList<String>();
 		while (!sel2.equals("back")) {
-			ArrayList<String> menuShow = new ArrayList<String>(Arrays.asList("ReplyPost", "Back"));
+			ArrayList<String> menuShow = new ArrayList<String>(Arrays.asList("AcceptPost", "ReplyPost", "Back"));
 			sel2 = Tools.launchMenu(menuShow, "invalid input");
-				
+			
 			if (sel2.equals("replypost")){
-				int size = PostDB.getCategorySize(category);
-				
-				for (int i = 0; i < size; i++){
-					replyMenu.add(Integer.toString(i+1));
-				}
 				int replyNumSel = Integer.parseInt(Tools.launchMenuNoPrint(replyMenu,"Select post number" ,"invalid input"));
 				if (Session.getStatus()){
 					replyPost(replyNumSel, category);
@@ -109,7 +125,10 @@ public class Flav {
 					replyPost(replyNumSel, category);
 					}
 				}
-			System.out.println("\n\nSent Answer!\n");
+			}
+			
+			if (sel2.equals("acceptpost")){
+				
 			}
 		}
 		if(sel2.equals("back")){sel2 = "IN";}
@@ -117,7 +136,7 @@ public class Flav {
 	
 	public static void replyPost(int input, String category) {
 	System.out.print("Reply to post number " + input + ": ");
-	String answerBody = sc.next();
+	String answerBody = sc.nextLine();
 	posts = PostDB.getPosts(category);
 	posts.get(input-1).addAnswer(answerBody, Session.getCurrentAccount());
 	}

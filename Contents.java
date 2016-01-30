@@ -19,9 +19,7 @@ public class Contents {
 	}
 	
 	public static void printPostsIntro(){
-		System.out.println("\n****************************************************************************");
+		System.out.println("****************************************************************************");
 		System.out.print("Enter the category you are interested in (type: 'all' for showing all posts)\t");
 	}
-	
-	
 }

@@ -15,11 +15,11 @@ public class Demo {
 	
 	
 	static public void generateUsers() {
+		users.add(new User("test", "test"));
 		users.add(new User("matteo@m.com", "password"));
 		users.add(new User("freeman@m.com", "password"));
 		users.add(new User("vaibav@m.com", "password"));
 		users.add(new User("dheeraj@m.com", "password"));
-		users.add(new User("test", "test"));
     }
 
     static public void generatePosts() {
@@ -29,20 +29,18 @@ public class Demo {
 		posts.add(new Post("services", "lessons", "coding lessons", "I've been coding for 20 years", 40));
 		posts.add(new Post("services", "lessons", "yoga teacher", "yoga lessons every weekend", 15));
 		posts.add(new Post("services", "lessons", "farm workshop", "3 days on a farm with eat healthy", 200));
-    }
+	}
 	
 	static public void assignPosts() {
 		int count = 0;
 		for (Post p : posts){
 			p.setOwner(users.get(count));
-			// System.out.println("\n" + count + "Assegno " + users.get(count).getEmail() + p.getTitle());
+			p.addAnswer("default answer", users.get(users.size() - count - 1));
 			users.get(count).uploadPost(p);
-			// System.out.println(Integer.toString(count) + "è >= di" + users.size() + "?");
 			count++;
 		if (count >= users.size()){count = 0;}
 		}
-	}
-	
+	}	
 	
     static public ArrayList<User> getUsers() {
 		return users;

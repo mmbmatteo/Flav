@@ -10,6 +10,11 @@ public class Session{
 		userLogged = user;
 	}
 	
+	public static void logout(){
+		loginStatus = false;
+		userLogged = null;
+	}
+	
 	public static void setLoggedOut(){
 		loginStatus = false;
 	}

@@ -11,23 +11,6 @@ public class Tools {
 		return dateFormat.format(date);
 	}
 	
-/* 	public static String getMainSelector(){
-		String sel = Tools.getAndCheckInputString("login|newuser|showposts|searchposts|contact|help|exit|1|2|3|4|5|6|7");
-		if (sel.matches("1|2|3|4|5|6|7")){
-			int intSel = Integer.parseInt(sel);
-			switch(intSel){
-				case 1 : sel = "login"; 		break;
-				case 2 : sel = "newuser"; 		break;
-				case 3 : sel = "showposts"; 	break;
-				case 4 : sel = "searchposts"; 	break;
-				case 5 : sel = "contact"; 		break;
-				case 6 : sel = "help"; 			break;
-				case 7 : sel = "exit"; 			break;
-			}
-		}
-		return sel;
-	} */
-	
 	//getAndCheckInputString METHOD OVERLOAD
 	public static String getAndCheckInputString(String pattern, String invalidMessage){
 			String toCheck;
@@ -55,26 +38,64 @@ public class Tools {
 	//END getAndCheckInputString METHOD OVERLOAD
 	
 	//printPosts METHOD OVERLOAD
-	public static void printPosts(ArrayList<Post> posts){
+	public static void printPosts(ArrayList<Post> posts, boolean owner){
 		int count = 1;
 		String risp = "zero";
 		for (Post p : posts) {
-			if (!p.hasAnswers()){
-				System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
-				System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
-			} else{
-				System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
-				System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
-				if (p.answersNum() == 1){risp = " answer\n";}else{risp = " answers\n";}
-				System.out.println("\t\t* " + p.answersNum() + risp); 
+			if (owner){
+				if (!p.hasAnswers()){
+					System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
+					System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
+				} else{
+					System.out.println(Integer.toString(count++) + "\t" + p.getOwner());
+					System.out.println(p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
+					if (p.answersNum() == 1){risp = " answer\n";}else{risp = " answers\n";}
+					System.out.println("\t\t* " + p.answersNum() + risp); 
+				}
+			}else{
+				if (!p.hasAnswers()){
+					System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
+				} else{
+					System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
+					if (p.answersNum() == 1){risp = " answer\n";}else{risp = " answers\n";}
+					System.out.println("\t\t* " + p.answersNum() + risp); 
+				}
 			}
 		}
 	}
 	
 	public static void printPosts(String category){
-		printPosts(PostDB.getPosts(category));
+		printPosts(PostDB.getPosts(category), true);
 	}
 	//END printPosts METHOD OVERLOAD
+	
+/* 	public static void printMyPosts(User user){
+		printPosts(user.getMyPosts(), false);
+	} */
+		
+	public static void printMyPosts(User user){
+		ArrayList<Post>	posts = user.getMyPosts();
+		int count = 1;
+		for (Post p : posts) {
+			if (!p.hasAnswers()){
+				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
+			} else{
+				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
+				ArrayList<Post>	answers = p.getAnswers();
+				for (Post a : answers){
+					System.out.println("\t" + a.getOwner() + "\t" + a.getDescription());
+				}
+			}
+		}
+	}	
+	
+	public static ArrayList<String> itemSelectionMenu(int size){
+		ArrayList<String> replyMenu = new ArrayList<String>();
+		for (int i = 0; i < size; i++){
+					replyMenu.add(Integer.toString(i+1));
+		}
+		return replyMenu;
+	}
 	
 	//launchMenu METHOD OVERLOAD	
 	public static String launchMenu(ArrayList<String> menu, String invalidMessage){
@@ -90,7 +111,7 @@ public class Tools {
 			i++;
 		}
 		pattern = pattern.toLowerCase().substring(0, pattern.length()-1);
-		System.out.println("Select function\t");
+		System.out.print("\nSelect function\t");
 		String selection = getAndCheckInputString(pattern, invalidMessage);
 		
 		boolean found = false;
@@ -115,7 +136,7 @@ public class Tools {
 			i++;
 		}
 		pattern = pattern.toLowerCase().substring(0, pattern.length()-1);
-		System.out.println(printMessage);
+		System.out.print(printMessage + " ");
 		String selection = getAndCheckInputString(pattern, invalidMessage);
 		
 		boolean found = false;
