@@ -31,6 +31,20 @@ public class UserDB {
 	static boolean emailExist(String email){
 		return (allCredentials.containsKey(email));
 	}
+	
+	static void saveNew(String loginEmail, String loginPassword){
+		User newUser = new User(loginEmail, loginPassword);
+		usersList.add(newUser);
+		allCredentials.put(newUser.getCredentials(), newUser);
+		init();
+	}
+	
+	static void printAllUsers(){
+		System.out.println("printAllUsers");
+		for (User u : usersList){
+			System.out.println(u.getCredentials());
+		}
+	}
 }
 
 	

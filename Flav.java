@@ -18,6 +18,8 @@ public class Flav {
 	static int				listSize;
 	static ArrayList<String> replyMenu = new ArrayList<String>();
 	static ArrayList<String> mainMenu = new ArrayList<String>();
+	static String			answerBody;
+	static int				replyNumSel;
 	
 	public static void main(String[] args) {
 		Demo.init();
@@ -29,9 +31,9 @@ public class Flav {
 			Contents.printMainMenu();
 			
 			if (Session.getStatus()){
-				mainMenu = new ArrayList<String>(Arrays.asList("Logout","MyProfile", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
+				mainMenu = new ArrayList<String>(Arrays.asList("Logout","MyProfile", "ShowPosts", "SearchPosts", "Contact", "Exit", "Debug"));
 			}else{
-				mainMenu = new ArrayList<String>(Arrays.asList("Login", "NewUser", "ShowPosts", "SearchPosts", "Contact", "Help", "Exit"));
+				mainMenu = new ArrayList<String>(Arrays.asList("Login", "NewUser", "ShowPosts", "SearchPosts", "Contact", "Exit", "Debug"));
 			}
 			sel = Tools.launchMenu(mainMenu, "Invalid Input");
 
@@ -46,14 +48,12 @@ public class Flav {
 			}
 			
 			if (sel.equals("myprofile")){	
-				ArrayList<String> myProfileMenu = new ArrayList<String>(Arrays.asList(""));
-				/*test*/System.out.println("Current Account: " + Session.getCurrentAccount().getEmail());
-				Tools.printMyPosts(Session.getCurrentAccount());
-				sel = "IN";
+				myProfile();
 			}
 		
-/*			case 2:	newUser();
-					break; */
+			 if (sel.equals("newuser")){	
+				newUser();
+			}
 
  			if (sel.equals("showposts")){	
 				showPosts();
@@ -63,12 +63,17 @@ public class Flav {
 //			case 4:	searchPosts();
 //					break;		
 			
-/* 			case 5: contact();
-					break;*/
+ 			if (sel.equals("contact")){
+				System.out.println("mail@matteombianchini.com");
+			}
 					
 			if (sel.equals("exit")){
 				System.out.println("\nBYE BYE!");
 				break;
+			}
+			
+			if (sel.equals("debug")){	
+				UserDB.printAllUsers();
 			}
 		}			
 	}
@@ -91,13 +96,19 @@ public class Flav {
 		}		
 	}
 	
+	public static void myProfile(){
+		ArrayList<String> myProfileMenu = new ArrayList<String>(Arrays.asList(""));
+		System.out.println("Hi " + Session.getCurrentAccount().getEmail() + ", this is your profile.");
+		Tools.printMyPosts(Session.getCurrentAccount());
+		sel = "IN";
+	}
+	
 	public static void newUser(){
 		System.out.print("Sign Up\nInsert your email: ");
 		String newEmail = Tools.getAndCheckInputString("\\S+@\\S+.\\S+", "is not a valid email adress. Try again!\n");
-		System.out.print("\nChoose a Password: ");
+		System.out.print("Choose a Password: ");
 		String newPassword = Tools.getAndCheckInputString("^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,}$", "Password must be 8 characters long and contain at least one number. Try again!\n");
-		User user = new User(newEmail, newPassword);
-		user.saveNew();	
+		UserDB.saveNew(newEmail, newPassword);	
 	}
 	
 	public static void showPosts() {		
@@ -117,11 +128,12 @@ public class Flav {
 			sel2 = Tools.launchMenu(menuShow, "invalid input");
 			
 			if (sel2.equals("replypost")){
-				int replyNumSel = Integer.parseInt(Tools.launchMenuNoPrint(replyMenu,"Select post number" ,"invalid input"));
 				if (Session.getStatus()){
+					replyNumSel = Integer.parseInt(Tools.launchMenuNoPrint(replyMenu,"Select post number" ,"invalid input"));
 					replyPost(replyNumSel, category);
 				} else {
 					if(login()){ 
+					replyNumSel = Integer.parseInt(Tools.launchMenuNoPrint(replyMenu,"Select post number" ,"invalid input"));
 					replyPost(replyNumSel, category);
 					}
 				}
@@ -135,8 +147,11 @@ public class Flav {
 	}
 	
 	public static void replyPost(int input, String category) {
-	System.out.print("Reply to post number " + input + ": ");
-	String answerBody = sc.nextLine();
+	if(sc.hasNextLine()){
+		sc.nextLine();
+	}
+	System.out.println("Reply to post number " + input + ": ");
+	answerBody = sc.nextLine();
 	posts = PostDB.getPosts(category);
 	posts.get(input-1).addAnswer(answerBody, Session.getCurrentAccount());
 	}

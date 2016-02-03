@@ -49,15 +49,6 @@ public class User {
 	public void uploadPost(Post post) {
 		posts.add(post);
 	}
-	
-	public void saveNew() {
-			
-			try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("users.txt", true)))){
-				out.println (email + "\t\t" + password);
-			}catch (IOException e) {
-				System.out.println("Error while saving new user.");
-			}
-	}
 }
 	
 	

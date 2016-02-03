@@ -14,7 +14,7 @@ public class Contents {
 		System.out.println("\n\t\t\t\t\t***************");
 		System.out.println("  \t\t\t\t\t** HOME PAGE **");
 		System.out.println("  \t\t\t\t\t***************");	
-		if (Session.getStatus()){System.out.println("\tHi " + Session.getCurrentAccountEmail());}
+		if (Session.getStatus()){System.out.println("\t**" + Session.getCurrentAccountEmail() + "**");}
 		//System.out.print("\n\n\tLogin\n\tNewUser\n\tShowPosts\n\tSearchPosts\n\tContact\n\tHelp\n\tExit\n\nSelect Function:\t");
 	}
 	

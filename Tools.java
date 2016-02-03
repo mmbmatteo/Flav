@@ -61,6 +61,7 @@ public class Tools {
 					System.out.println("\t\t* " + p.answersNum() + risp); 
 				}
 			}
+			System.out.println("\n"); 
 		}
 	}
 	
@@ -81,10 +82,7 @@ public class Tools {
 				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice() + "\n\n");
 			} else{
 				System.out.println(Integer.toString(count++) + "\t" + p.getTitle() + " ||| " + p.getDescription() + " ||| Price: " + p.getPrice());
-				ArrayList<Post>	answers = p.getAnswers();
-				for (Post a : answers){
-					System.out.println("\t" + a.getOwner() + "\t" + a.getDescription());
-				}
+				printAnswers(p);
 			}
 		}
 	}	
@@ -97,12 +95,20 @@ public class Tools {
 		return replyMenu;
 	}
 	
+	public static void printAnswers(Post p){
+		ArrayList<Post>	answers = p.getAnswers();
+		for (Post a : answers){
+			System.out.println("\t" + a.getOwner() + "\t\t" + a.getDescription());
+		}
+		System.out.println("");
+		
+	}
 	//launchMenu METHOD OVERLOAD	
 	public static String launchMenu(ArrayList<String> menu, String invalidMessage){
 		String pattern = "";
 		int i = 0;
 		ArrayList<String> patternList = new ArrayList<String>();
-		System.out.println("\n");
+		System.out.println("");
 		for (String element : menu) {
 			patternList.add(element.toLowerCase().concat("|").concat(Integer.toString(i+1)));
 			pattern = pattern.concat(element).concat("|").concat(Integer.toString(i+1));
